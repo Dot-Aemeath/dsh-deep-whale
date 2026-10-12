@@ -45,7 +45,7 @@ Click an image for the full size.
    | [orca-link](https://www.npmjs.com/package/@smalltailqwq/dsh-client-ui-skin-orca-link) | `@smalltailqwq/dsh-client-ui-skin-orca-link` |
    | [Skin Manager](https://www.npmjs.com/package/@smalltailqwq/dsh-client-ui-skin-deep-whale-manager) | `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager` |
 
-2. With **one skin**, the manager is optional; without it, the skin's customization controls are unavailable. With **multiple skins, the manager is required** to prevent them from running together and breaking the layout. Enable the plugins when prompted after installation, then **restart DSH once**.
+2. With **one skin**, the manager is optional; without it, the customization panel, graphical version-compatibility approval and automatic management of mutual exclusion between skins are unavailable. With **multiple skins, install and keep the manager enabled** to prevent them from running together and breaking the layout. Once installed, keep the manager enabled even with one skin. Enable the plugins when prompted after installation, then **restart DSH once**.
 3. If you installed Skin Manager, open **Settings → Skins** after restarting. If the first start still shows the official UI, select the skin you want to enable there.
 
 To use the latest code on `main`, enter the GitHub specs for your chosen skins and manager in the same install field, one at a time (just the spec, without `dsh plugin add`):
@@ -56,7 +56,7 @@ github:Small-tailqwq/dsh-deep-whale#main&path:/maid-atelier
 github:Small-tailqwq/dsh-deep-whale#main&path:/orca-link
 ```
 
-The pnpm bundled with DSH defaults to a 24-hour minimum package age, so a newly published npm version may not be available yet. GitHub sources are not subject to this npm package-age check.
+With its default configuration, DSH's bundled pnpm 11.7.0 prefers npm versions published at least 24 hours ago. To install a specific new release immediately, enter `package-name@^version` in the same **Add plugin** field, for example `@smalltailqwq/dsh-client-ui-skin-orca-link@^0.1.7` (without a command prefix). This explicit `add` installs the new release and records its exact version in `pnpm-workspace.yaml` under `minimumReleaseAgeExclude`, while keeping the dependency as a caret range. This behavior describes the bundled version and default configuration; other pnpm versions or custom policies may differ. GitHub sources are not subject to this npm package-age check.
 
 The desktop app manages its own `desktop` profile; you do not need to set up a `dsh` command. The `web` commands below do not install skins into the desktop app.
 
@@ -102,7 +102,7 @@ Both sources use the same package names, so whichever you install last replaces 
 
 Then **restart DSH once**. If you installed the manager, open **Settings → Skins** and click **Switch** on the skin you want. From then on, switching skins takes effect immediately without restarting.
 
-- For one skin, you can omit the other skin's and the manager's `add` commands; without the manager, customization controls are unavailable. For multiple skins, keep the manager to prevent them from running together.
+- For one skin, you can omit the other skin's and the manager's `add` commands; without the manager, the customization panel, graphical version-compatibility approval and automatic management of mutual exclusion between skins are unavailable. Once installed, keep the manager enabled. For multiple skins, install and keep it enabled to prevent them from running together.
 - If you installed both skins, DSH still looks like the official default after the first restart. That's expected: two skins running together clash, so the manager turns both off and lets you pick one.
 - Rather not type commands? Send this line to any AI assistant (or DSH itself) and it will install everything by following [INSTALL.md](INSTALL.md):
 
@@ -128,7 +128,7 @@ dsh plugin --profile web update '@smalltailqwq/dsh-client-ui-skin-deep-whale-man
 
 This works for both sources: npm installs move to the newest release, GitHub installs pull the latest `main`. Refresh the page afterwards; no DSH restart is needed. If this profile contains only these skins, `dsh plugin --profile web update` updates everything at once.
 
-The pnpm bundled with DSH prefers npm versions published at least 24 hours ago by default, so `update` may stay on an older release. To request a specific release, reinstall it with `@^<version>` after the package name; it is still subject to the current pnpm package-age policy. Version numbers are listed under [Releases](https://github.com/Small-tailqwq/dsh-deep-whale/releases):
+With its default configuration, DSH's bundled pnpm 11.7.0 prefers npm versions published at least 24 hours ago, so `update` may stay on an older release. To install a specific new release immediately, explicitly `add` it with `@^<version>` after the package name: pnpm installs it and records its exact version in `pnpm-workspace.yaml` under `minimumReleaseAgeExclude`, while keeping the dependency as a caret range. Other pnpm versions or custom policies may differ. Version numbers are listed under [Releases](https://github.com/Small-tailqwq/dsh-deep-whale/releases):
 
 ```sh
 dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-orca-link@^0.1.7'
@@ -205,7 +205,7 @@ dsh plugin --profile web add <absolute clone path>/orca-link
 <details>
 <summary><a name="mutual-exclusion"></a><b>How skin exclusivity works</b></summary>
 
-Only one skin can be active at a time. The skin manager isn't a skin and should stay enabled.
+Only one skin can be active at a time. The skin manager isn't a skin and should stay enabled once installed. With multiple skins installed, install and keep the manager enabled to manage mutual exclusion.
 
 Each skin's on/off switch lives in two config files: `~/.dsh/profiles/<profile>/cordis.patch.yml` (profile layer; replace `<profile>` with the actual name, such as `web` or Desktop's `desktop`) and `~/.dsh/cordis.patch.yml` (home layer, which takes priority). A skin with no entry in these files is **on** by default, so installing both skins without ever switching leaves them running together and breaks the layout.
 

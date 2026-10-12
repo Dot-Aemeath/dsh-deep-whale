@@ -45,7 +45,7 @@ Nhấp vào ảnh để xem kích thước đầy đủ.
    | [orca-link](https://www.npmjs.com/package/@smalltailqwq/dsh-client-ui-skin-orca-link) | `@smalltailqwq/dsh-client-ui-skin-orca-link` |
    | [Trình quản lý giao diện](https://www.npmjs.com/package/@smalltailqwq/dsh-client-ui-skin-deep-whale-manager) | `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager` |
 
-2. Nếu chỉ cài **một giao diện**, trình quản lý là tùy chọn; không có nó thì bạn không dùng được các tùy chỉnh của giao diện. Nếu cài **nhiều giao diện, bắt buộc phải cài trình quản lý** để tránh các giao diện chạy cùng lúc và làm rối bố cục. Bật plugin khi được nhắc sau khi cài, rồi **khởi động lại DSH một lần**.
+2. Nếu chỉ cài **một giao diện**, trình quản lý là tùy chọn; không có nó thì bạn không dùng được bảng tùy chỉnh, chức năng cho phép phiên bản không tương thích qua giao diện đồ họa và quản lý tự động việc loại trừ giữa nhiều giao diện. Nếu cài **nhiều giao diện, bắt buộc phải cài và giữ trình quản lý được bật** để tránh các giao diện chạy cùng lúc và làm rối bố cục. Khi đã cài trình quản lý, hãy giữ nó được bật ngay cả khi chỉ dùng một giao diện. Bật plugin khi được nhắc sau khi cài, rồi **khởi động lại DSH một lần**.
 3. Nếu đã cài trình quản lý giao diện, hãy mở «Cài đặt → Quản lý giao diện» sau khi khởi động lại. Nếu lần khởi động đầu vẫn hiển thị giao diện chính thức, chọn giao diện bạn muốn bật tại đây.
 
 Để dùng code mới nhất trên `main`, nhập lần lượt địa chỉ GitHub tương ứng với các giao diện và trình quản lý bạn đã chọn vào cùng ô cài đặt (chỉ nhập địa chỉ, không thêm `dsh plugin add`):
@@ -56,7 +56,7 @@ github:Small-tailqwq/dsh-deep-whale#main&path:/maid-atelier
 github:Small-tailqwq/dsh-deep-whale#main&path:/orca-link
 ```
 
-Theo mặc định, pnpm đi kèm DSH yêu cầu package npm đã phát hành ít nhất 24 giờ, nên có thể chưa cài được bản vừa phát hành. Nguồn GitHub không chịu kiểm tra tuổi package npm này.
+Với cấu hình mặc định, pnpm 11.7.0 đi kèm DSH ưu tiên các phiên bản npm đã phát hành ít nhất 24 giờ. Để cài ngay một bản mới cụ thể, nhập `tên-package@^phiên-bản` vào cùng ô **Add plugin**, ví dụ `@smalltailqwq/dsh-client-ui-skin-orca-link@^0.1.7` (không thêm tiền tố lệnh). Thao tác `add` chỉ định phiên bản này sẽ cài bản mới và ghi phiên bản chính xác vào `minimumReleaseAgeExclude` trong `pnpm-workspace.yaml`, đồng thời giữ dependency ở dạng khoảng phiên bản caret. Hành vi này áp dụng cho phiên bản đi kèm và cấu hình mặc định; phiên bản pnpm khác hoặc chính sách tùy chỉnh có thể khác. Nguồn GitHub không chịu kiểm tra tuổi package npm này.
 
 Ứng dụng desktop tự quản lý profile `desktop`; bạn không cần thiết lập lệnh `dsh`. Các lệnh dùng `web` bên dưới không cài giao diện vào ứng dụng desktop.
 
@@ -102,7 +102,7 @@ Hai nguồn dùng cùng tên package, nên nguồn cài sau sẽ thay thế ngu�
 
 Sau đó **khởi động lại DSH một lần**. Nếu đã cài trình quản lý, mở «Cài đặt → Quản lý giao diện» và nhấn «Chuyển» trên giao diện bạn muốn. Từ đó trở đi, đổi giao diện có hiệu lực ngay, không cần khởi động lại.
 
-- Nếu chỉ cài một giao diện, bạn có thể bỏ lệnh `add` của giao diện còn lại và trình quản lý; không có trình quản lý thì không dùng được các tùy chỉnh. Nếu cài nhiều giao diện, phải giữ trình quản lý để tránh chúng chạy cùng lúc.
+- Nếu chỉ cài một giao diện, bạn có thể bỏ lệnh `add` của giao diện còn lại và trình quản lý; không có trình quản lý thì không dùng được bảng tùy chỉnh, chức năng cho phép phiên bản không tương thích qua giao diện đồ họa và quản lý tự động việc loại trừ giữa nhiều giao diện. Khi đã cài, hãy giữ trình quản lý được bật. Nếu cài nhiều giao diện, phải cài và giữ trình quản lý được bật để tránh chúng chạy cùng lúc.
 - Nếu cài cả hai giao diện, sau lần khởi động lại đầu tiên DSH vẫn trông như mặc định chính thức. Đó là bình thường: hai giao diện chạy cùng lúc sẽ xung đột, nên trình quản lý tắt cả hai để bạn tự chọn.
 - Không muốn gõ lệnh? Gửi câu sau cho bất kỳ trợ lý AI nào (hoặc chính DSH), nó sẽ cài theo [INSTALL.md](INSTALL.md):
 
@@ -128,7 +128,7 @@ dsh plugin --profile web update '@smalltailqwq/dsh-client-ui-skin-deep-whale-man
 
 Lệnh này dùng được cho cả hai nguồn: nguồn npm sẽ lên bản phát hành mới nhất, nguồn GitHub sẽ kéo code mới nhất trên `main`. Cập nhật xong chỉ cần tải lại trang, không cần khởi động lại DSH. Nếu profile này chỉ có các giao diện của kho, có thể chạy `dsh plugin --profile web update` để cập nhật tất cả.
 
-Theo mặc định, pnpm đi kèm DSH ưu tiên các phiên bản npm đã phát hành ít nhất 24 giờ, nên `update` có thể vẫn giữ bản cũ. Để yêu cầu một phiên bản cụ thể, hãy cài lại với `@^<phiên bản>` sau tên package; phiên bản đó vẫn phải qua kiểm tra tuổi package theo chính sách pnpm hiện tại. Số phiên bản có tại [Releases](https://github.com/Small-tailqwq/dsh-deep-whale/releases):
+Với cấu hình mặc định, pnpm 11.7.0 đi kèm DSH ưu tiên các phiên bản npm đã phát hành ít nhất 24 giờ, nên `update` có thể vẫn giữ bản cũ. Để cài ngay một bản mới cụ thể, hãy dùng `add` với `@^<phiên bản>` sau tên package: pnpm sẽ cài bản đó và ghi phiên bản chính xác vào `minimumReleaseAgeExclude` trong `pnpm-workspace.yaml`, đồng thời giữ dependency ở dạng khoảng phiên bản caret. Phiên bản pnpm khác hoặc chính sách tùy chỉnh có thể khác. Số phiên bản có tại [Releases](https://github.com/Small-tailqwq/dsh-deep-whale/releases):
 
 ```sh
 dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-orca-link@^0.1.7'
@@ -205,7 +205,7 @@ dsh plugin --profile web add <đường dẫn tuyệt đối tới bản clone>/
 <details>
 <summary><a name="mutual-exclusion"></a><b>Cơ chế loại trừ giao diện</b></summary>
 
-Mỗi lúc chỉ bật được một giao diện. Trình quản lý không phải là giao diện và cần luôn được bật.
+Mỗi lúc chỉ bật được một giao diện. Trình quản lý không phải là giao diện và cần luôn được bật sau khi cài. Nếu cài nhiều giao diện, phải cài và giữ trình quản lý được bật để quản lý việc loại trừ giữa chúng.
 
 Công tắc bật/tắt của mỗi giao diện nằm trong hai tệp cấu hình: `~/.dsh/profiles/<profile>/cordis.patch.yml` (lớp profile; thay `<profile>` bằng tên thực tế, chẳng hạn `web` hoặc `desktop` của ứng dụng desktop) và `~/.dsh/cordis.patch.yml` (lớp home, được ưu tiên hơn). Giao diện chưa có mục trong các tệp này mặc định là **bật**, nên cài cả hai mà chưa từng chuyển đổi thì chúng sẽ chạy cùng lúc và làm rối giao diện.
 

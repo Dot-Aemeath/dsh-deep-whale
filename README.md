@@ -45,7 +45,7 @@
    | [orca-link](https://www.npmjs.com/package/@smalltailqwq/dsh-client-ui-skin-orca-link) | `@smalltailqwq/dsh-client-ui-skin-orca-link` |
    | [皮肤管理器](https://www.npmjs.com/package/@smalltailqwq/dsh-client-ui-skin-deep-whale-manager) | `@smalltailqwq/dsh-client-ui-skin-deep-whale-manager` |
 
-2. **只装一套皮肤**时，管理器可选；不装就没有皮肤的可配置项。**同时装多套皮肤必须装管理器**，否则皮肤同时启用会让界面错乱。安装完成后按提示启用插件，然后**重启一次 DSH**。
+2. **只装一套皮肤**时，管理器可选；不装就无法使用配置面板、图形化版本兼容放行和自动多皮肤互斥管理。**同时装多套皮肤必须安装并保持管理器启用**，否则皮肤同时启用会让界面错乱。管理器一旦安装，即使只用一套皮肤也应保持启用。安装完成后按提示启用插件，然后**重启一次 DSH**。
 3. 如果安装了皮肤管理器，重启后打开「设置 → 皮肤管理」。首次启动若仍显示官方界面，到这里选择要启用的皮肤即可。
 
 想用 `main` 上的最新代码，也可以按所选皮肤和管理器，在同一个安装框里逐个填入对应的 GitHub 地址（只填地址，不加 `dsh plugin add`）：
@@ -56,7 +56,7 @@ github:Small-tailqwq/dsh-deep-whale#main&path:/maid-atelier
 github:Small-tailqwq/dsh-deep-whale#main&path:/orca-link
 ```
 
-DSH 捆绑的 pnpm 默认有 24 小时包龄检查，刚发布的 npm 版本可能暂时装不到；GitHub 来源不受这项 npm 包龄检查影响。
+在默认配置下，DSH 捆绑的 pnpm 11.7.0 优先选择发布满 24 小时的 npm 版本。想立即安装某个刚发布的新版，可以在同一个「添加插件」框里填入 `包名@^版本号`，例如 `@smalltailqwq/dsh-client-ui-skin-orca-link@^0.1.7`（不加命令前缀）。这次显式 `add` 会安装新版，并把具体版本写入 `pnpm-workspace.yaml` 的 `minimumReleaseAgeExclude`，依赖仍保持 caret 范围。此行为对应捆绑版本及默认配置，其他 pnpm 版本或自定义策略可能不同。GitHub 来源不受这项 npm 包龄检查影响。
 
 桌面版通过应用管理自己的 `desktop` profile，不需要先配置 `dsh` 命令。下面的 `web` 命令不会给桌面版安装皮肤。
 
@@ -102,7 +102,7 @@ dsh plugin --profile web add 'github:Small-tailqwq/dsh-deep-whale#main&path:/ski
 
 装好后**重启一次 DSH**。如果装了管理器，打开「设置 → 皮肤管理」，在想用的皮肤上点「切换」。之后换皮肤都是即时生效，不用再重启。
 
-- 只装一套皮肤时，可以删掉另一套皮肤和管理器的 `add`；不装管理器就没有皮肤的可配置项。同时装多套皮肤必须保留管理器，避免皮肤同时启用。
+- 只装一套皮肤时，可以删掉另一套皮肤和管理器的 `add`；不装管理器就无法使用配置面板、图形化版本兼容放行和自动多皮肤互斥管理。管理器一旦安装就应保持启用；同时装多套皮肤必须安装并保持管理器启用，避免皮肤同时启用。
 - 两套都装了的话，首次重启后界面还是官方默认的样子，这是正常的：两套皮肤同时启用会互相打架，管理器会先把它们都关掉，等你来选。
 - 不想自己敲命令，可以把这句话发给任意 AI（或 DSH 本身），它会按 [INSTALL.md](INSTALL.md) 帮你装好：
 
@@ -128,7 +128,7 @@ dsh plugin --profile web update '@smalltailqwq/dsh-client-ui-skin-deep-whale-man
 
 这条命令对 npm 和 GitHub 两种来源都适用：npm 来源会更新到最新发布的版本，GitHub 来源会拉取 `main` 上的最新代码。更新后刷新页面即可，不需要重启 DSH。如果这个 profile 里只装了本仓库的皮肤，也可以直接运行 `dsh plugin --profile web update` 更新全部插件。
 
-DSH 内置的 pnpm 默认优先选择发布满 24 小时的 npm 版本，所以 `update` 可能仍停在旧版。要指定某个新版，可以在包名后加上 `@^版本号` 重新安装；仍需通过当前 pnpm 的包龄检查。版本号见 [Releases](https://github.com/Small-tailqwq/dsh-deep-whale/releases)：
+在默认配置下，DSH 内置的 pnpm 11.7.0 优先选择发布满 24 小时的 npm 版本，所以 `update` 可能仍停在旧版。要立即安装某个新版，可以显式 `add` 包名加 `@^版本号`：pnpm 会安装新版，并把具体版本写入 `pnpm-workspace.yaml` 的 `minimumReleaseAgeExclude`，依赖仍保持 caret 范围。其他 pnpm 版本或自定义策略可能不同。版本号见 [Releases](https://github.com/Small-tailqwq/dsh-deep-whale/releases)：
 
 ```sh
 dsh plugin --profile web add '@smalltailqwq/dsh-client-ui-skin-orca-link@^0.1.7'
@@ -205,7 +205,7 @@ dsh plugin --profile web add <clone 的绝对路径>/orca-link
 <details>
 <summary><a name="mutual-exclusion"></a><b>皮肤互斥原理</b></summary>
 
-同一时间只能启用一套皮肤；皮肤管理器本身不算皮肤，需要一直开着。
+同一时间只能启用一套皮肤；皮肤管理器本身不算皮肤，安装后需要一直开着。同时安装多套皮肤时，必须安装并保持管理器启用来管理互斥。
 
 每套皮肤的开关记录在两个配置文件里：`~/.dsh/profiles/<profile>/cordis.patch.yml`（profile 层，`<profile>` 为 `web` 或桌面版的 `desktop` 等实际名称）和 `~/.dsh/cordis.patch.yml`（home 层，优先级更高）。文件里没有写某套皮肤时，它默认是**开启**的，所以一次装两套又从没切换过，它们就会同时运行，导致界面错乱。
 
